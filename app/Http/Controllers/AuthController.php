@@ -34,11 +34,14 @@ class AuthController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        $token = $user->createToken('token')->plainTextToken;
+        $jwt = $user->createToken('token')->plainTextToken;
 
+        $cookie = cookie('jwt', $jwt, 60 * 24); // This cookie will expire in 1 day.
+
+        // The frontend will get the cookie directly from the request and be able to use it to authenticate the user.
         return \response([
-            'jwt' => $token
-        ]);
+            'jwt' => $jwt
+        ])->withCookie($cookie);
     }
 
     public function user(Request $request)

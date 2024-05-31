@@ -29,6 +29,5 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
-
+    'supports_credentials' => true, // When we set this to true, we allow the frontend to send cookies to the backend.
 ];
