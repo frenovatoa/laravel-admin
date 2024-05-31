@@ -19,4 +19,4 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // });
 
-Route::get('hello', [AuthController::class, 'hello']);
+Route::post('register', [AuthController::class, 'register']);
