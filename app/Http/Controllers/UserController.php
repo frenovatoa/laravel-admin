@@ -12,7 +12,7 @@ class UserController extends Controller
     // Fot get all users.
     public function index()
     {
-        return User::all();
+        return User::paginate(); // This will return a paginated list of users (default 15 per page).
     }
 
     // Create a new user.
