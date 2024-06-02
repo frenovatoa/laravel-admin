@@ -17,9 +17,3 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/storage
-storage/dbdata/ib_logfile0
-storage/dbdata/mysql/innodb_table_stats.ibd
-storage/dbdata/mysql/innodb_index_stats.ibd
-storage/dbdata/ibdata1
-storage/dbdata/admin/users.ibd
