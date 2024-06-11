@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $first_name
@@ -42,4 +43,9 @@ class User extends Authenticatable
     protected $guarded = []; // Every property can be mass assigned.
 
     protected $hidden = ['password']; // Hide password from JSON response.
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

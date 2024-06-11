@@ -14,7 +14,7 @@ class UserController extends Controller
     // Fot get all users.
     public function index()
     {
-        return User::paginate(); // This will return a paginated list of users (default 15 per page).
+        return User::with('role')->paginate(); // This will return a paginated list of users (default 15 per page).
     }
 
     // Create a new user.
@@ -31,7 +31,7 @@ class UserController extends Controller
     // Get a single user.
     public function show(string $id)
     {
-        return User::findOrFail($id);
+        return User::with('role')->find($id);
     }
 
     // Update a user.
