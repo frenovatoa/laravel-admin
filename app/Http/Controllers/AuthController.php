@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\RoleResource;
 
 class AuthController extends Controller
 {
@@ -50,6 +51,7 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
+        $user = $request->user($user->load('role'));
         return new UserResource($request->user());
     }
 

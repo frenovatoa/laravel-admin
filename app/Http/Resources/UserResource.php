@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\RoleResource;
 
 class UserResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class UserResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
-            'role' => $this->role,
+            'role' => new RoleResource($this->whenLoaded('role')) // If the role is loaded, return it.
         ];
     }
 }

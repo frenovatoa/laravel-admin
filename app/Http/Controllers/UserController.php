@@ -9,13 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\RoleResource;
 
 class UserController extends Controller
 {
     // Fot get all users.
     public function index()
     {
-        return UserResource::collection(User::paginate()); // This will return a paginated list of users (default 15 per page).
+        // return UserResource::collection(User::paginate());
+        return UserResource::collection(User::with('role')->paginate()); //* If the role is loaded, it will be displayed.
     }
 
     // Create a new user.
@@ -32,7 +34,7 @@ class UserController extends Controller
     // Get a single user.
     public function show(string $id)
     {
-        return new UserResource(User::find($id));
+        return new UserResource(User::with('role')->find($id));
     }
 
     // Update a user.
