@@ -16,6 +16,9 @@ class UserController extends Controller
     // Fot get all users.
     public function index()
     {
+        // \Gate::authorize('view', 'users');
+        $this->authorize('view', 'users');
+
         // return UserResource::collection(User::paginate());
         return UserResource::collection(User::with('role')->paginate()); //* If the role is loaded, it will be displayed.
     }
@@ -23,6 +26,7 @@ class UserController extends Controller
     // Create a new user.
     public function store(UserCreateRequest $request)
     {
+        $this->authorize('edit', 'users'); // It is the same as \Gate::authorize('edit', 'users');
         $user = User::create(
             $request->only('first_name', 'last_name', 'email', 'role_id')
             + ['password' => Hash::make(1234)] // Default password.
@@ -34,12 +38,16 @@ class UserController extends Controller
     // Get a single user.
     public function show(string $id)
     {
+        $this->authorize('view', 'users');
+
         return new UserResource(User::with('role')->find($id));
     }
 
     // Update a user.
     public function update(UserUpdateRequest $request, string $id)
     {
+        $this->authorize('edit', 'users');
+
         $user = User::find($id);
         $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
 
@@ -51,6 +59,8 @@ class UserController extends Controller
     // To delete a user.
     public function destroy(string $id)
     {
+        $this->authorize('edit', 'users');
+
         User::destroy($id);
 
         return \response(null, Response::HTTP_NO_CONTENT);

@@ -23,8 +23,14 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping(); // This will remove the wrapping of the data.
 
+        // A Gate is a way to define authorization logic in the application.
         \Gate::define('view', function(User $user, $model) {
-            return $user->role === 'admin';
+            // return false; //! This will unauthorize the user to view the data.
+            return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");
+        });
+
+        \Gate::define('edit', function(User $user, $model) {
+            return $user->hasAccess("edit_{$model}");
         });
     }
 }
